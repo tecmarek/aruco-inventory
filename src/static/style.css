@@ -1,0 +1,13 @@
+.navbar {
+    background-color: #9b59b6;
+    width: 1000px;
+}
+
+body {
+    background-color: #34495e;
+}
+
+#canvas {
+    border: solid 2px blue;
+    /*style="width:640px; height:480px;*/
+  }
