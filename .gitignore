@@ -1,0 +1,6 @@
+# key and cert for https to work -> gennerate your own
+*.pem
+*.crt
+
+# Node modules folder
+node_modules/
