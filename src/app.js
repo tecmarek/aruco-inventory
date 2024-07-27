@@ -9,12 +9,12 @@ var httpsOptions = {
 
 const app = express();
 
-app.use(express.static('static'));
+app.use('/', express.static('html'));
 
-app.get('/', (req,res)=>{
+/*app.get('/', (req,res)=>{
     res.statusCode = 200;
     res.writeHead(200, { 'content-type': 'text/html' });
-    fs.createReadStream('index.html').pipe(res);
-});
+    fs.createReadStream('./static/index.html').pipe(res);
+});*/
 
 https.createServer(httpsOptions, app).listen(4433);
