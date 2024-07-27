@@ -1,31 +1,28 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Augmented Reality Marker Detector</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <base target="_blank">
 
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Augmented Reality Marker Detector</title>
 
-  <!-- Page style -->
-  <link rel="stylesheet" href="style.css">
-
-  <script type="text/javascript" src="libs/polyfill.js"></script> 
-  
-  <script type="text/javascript" src="js-aruco2/cv.js"></script> 
-  <script type="text/javascript" src="js-aruco2/aruco.js"></script>
-
-  <script type="text/javascript" src="aruco_core.js"></script> 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+
+      <!-- Page style -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
+
+<div id="container">
+
     <nav class="navbar shadow-lg mb-2">
         <div class="container-fluid">
           <span class="navbar-brand text-light mb-0 h1">Augmented Reality Marker Detector</span>
@@ -53,118 +50,25 @@
         </div>
 
         <div class="mb-2">
-            <label for="aruco_id_input" class="form-label text-light">Aruco ID:</label>
-            <input type="number" value="0" class="form-control" id="aruco_id_input" aria-describedby="aruco_id_input_help">
-            <div id="aruco_id_input_help" class="form-text text-light">Enter the ID you want to highlight above</div>
+            <label for="id_input" class="form-label text-light">Tag ID:</label>
+            <input type="number" value="0" class="form-control" id="id_input" aria-describedby="id_input_help">
+            <div id="id_input_help" class="form-text text-light">Enter the ID you want to highlight above</div>
         </div>
     </div>
-    
 
-    <div style="text-align: center; font-family: monospace;">
+    <div>
         <div id="current_id" class="text-light">Searching ID -</div>
-        <video id="video" autoplay="true" style="display:none;"></video>
-        <canvas id="canvas"></canvas>
+        <video id="webcam_canvas" playsinline autoplay style="display:none"></video>
+        <canvas id="buffer_canvas" style="display:none"></canvas>
+        <canvas id="out_canvas"></canvas>
         <div class="text-light"><strong>Created by tecmarek</strong></div>
-        <div id="width_el" class="text-light">-</div>
-        <div id="height_el" class="text-light">-</div>
+        <div id="time_info" class="text-light">-</div>
     </div>
+
+<script src="main.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.1.0/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+<script type="module" src="apriltag/video_process.js" async></script>
+
 </body>
-
-<script>
-    var global_marker_id = 0;
-    var global_show_all_marker_outlines = 1;
-    var global_show_all_marker_ids = 0;
-
-    $(document).ready(function(){
-        window.addEventListener('resize', resizeCanvas, false);
-
-        function resizeCanvas() {
-            var canvas = document.getElementById("canvas");
-            var video = document.getElementById("video");
-            //console.log(video.videoWidth);
-            //console.log(video.videoHeight);
-
-            var width = window.innerWidth;
-            var height = window.innerHeight;
-
-            canvas.width = width * 0.85;
-            canvas.height = height * 0.75;
-
-            //canvas.width = video.videoWidth;
-            //canvas.height = video.videoHeight;
-
-            
-
-            // fill vertically  
-            //var vRatio = (c.height / video.videoHeight) * video.videoWidth;
-            //ctx.drawImage(v, 0,0, vRatio, c.height);
-
-            checkforVideo(video);
-            
-            
-
-            
-            
-        }
-
-        function checkforVideo(video_el) {
-            //Every 500ms, check if the video element has loaded
-            var b = setInterval(()=>{                
-                if(video_el.readyState >= 3){
-                    //This block of code is triggered when the video is loaded
-
-                    // fill horizontally -> Keep aspect ratio
-                    var c_width = window.innerWidth * 0.95;
-                    var hRatio = (c_width / video.videoWidth) * video.videoHeight;
-
-                    canvas.width = c_width;
-                    canvas.height = hRatio;
-
-                    //stop checking every half second
-                    clearInterval(b);
-
-                }    
-                
-                document.getElementById("width_el").innerHTML = canvas.width;
-                document.getElementById("height_el").innerHTML = canvas.height;
-            },100);
-        }
-
-        //resize once on load to get initial values
-        resizeCanvas();
-
-        document.getElementById("aruco_id_input").addEventListener("change", (event) => {
-            refreshID();
-        });
-
-        function refreshID()
-        {
-            global_marker_id = document.getElementById("aruco_id_input").value;
-            document.getElementById("current_id").innerHTML = "Searching ID - " + global_marker_id;
-        }
-
-        refreshID();
-
-        document.getElementById("show_all_outlines").addEventListener("change", (event) => {
-            if(document.getElementById("show_all_outlines").checked)
-            {
-                global_show_all_marker_outlines = 1;
-            }else {
-                global_show_all_marker_outlines = 0;
-            }
-        });
-
-        document.getElementById("show_all_ids").addEventListener("change", (event) => {
-            if(document.getElementById("show_all_ids").checked)
-            {
-                global_show_all_marker_ids = 1;
-            }else {
-                global_show_all_marker_ids = 0;
-            }
-        });
-
-        
-
-    });
-</script>
 </html>

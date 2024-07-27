@@ -1,7 +1,21 @@
 # aruco-inventory
-Simple proof of concept for using aruco markers to quickly find an inventory position based on its marker ID.
+Simple proof of concept for using aruco/apriltag markers to quickly find an inventory position based on its marker ID.
 Runs locally in the devices browser. Therefor the performance varies drastically based on the used device!
+The time the detector needs for each frame is shown on the bottom of the page.
 
+## Used tags
+This demo currently only supports the AprilTag tagStandard52h13 tags.
+This set of tags supports up to 48714 IDs, which should be enough for even larger inventories.
+A online generator can be found here: [April Tags generator](https://chaitanyantr.github.io/apriltag.html)
+
+
+## Based on
+This demo is based on the [apriltag-js-standalone](https://github.com/arenaxr/apriltag-js-standalone) project.
+With which the apriltag_wasm.js and apriltag_wasm.wasm files were compiled. For this to support the tagStandard52h13 tags the following steps have to be taken:
+
+- The project default of tag36h11 has to be replaced in the apriltag-js-standalone/src/apriltag_js.c file (Include .h, x_create(), x_destroy()).
+
+- In the apriltag-js-standalone/Makefile the tagStandard52h13.c file has to be included in the APRILTAG_SRCS definition by removing the corresponding -e term.
 
 # Generating needed ssl key pair
 Run the following command in the src folder:
@@ -22,6 +36,8 @@ and to start the server
 you can then open the server locally under https://127.0.0.1:4433/ or open it in your network replacing 127.0.0.1 with your PCs IP address.
 
 # Application in use
+
+Old images -> will be updated in the future!
 
 Printed tags 10mm x 10mm in size (option showing all outlines enabled):
 

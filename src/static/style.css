@@ -1,13 +1,42 @@
 .navbar {
     background-color: #9b59b6;
-    width: 1000px;
+    /* width: 1000px; */
 }
+
+audio {
+    max-width: 100%;
+}
+  
 
 body {
     background-color: #34495e;
+    margin: 0;
+    padding: 1em;
+    word-break: break-word;
 }
 
-#canvas {
-    border: solid 2px blue;
-    /*style="width:640px; height:480px;*/
+canvas {
+    background-color: #ccc;
+    max-width: 100%;
+    width: 100%;
+}
+
+video {
+    background: #222;
+    margin: 0 0 20px 0;
+    --width: 100%;
+    width: var(--width);
+    height: calc(var(--width) * 0.75);
+}
+
+html {
+    /* avoid annoying page width change
+    when moving from the home page */
+    overflow-y: scroll;
+}
+
+div#container {
+    margin: 0 auto 0 auto;
+    max-width: 60em;
+    padding: 1em 1.5em 1.3em 1.5em;
   }
