@@ -3,6 +3,8 @@ Simple proof of concept for using aruco/apriltag markers to quickly find an inve
 Runs locally in the devices browser. Therefor the performance varies drastically based on the used device!
 The time the detector needs for each frame is shown on the bottom of the page.
 
+[Demo](https://tecmarek.github.io/aruco-inventory/)
+
 ## Used tags
 This demo currently only supports the AprilTag tagStandard52h13 tags.
 This set of tags supports up to 48714 IDs, which should be enough for even larger inventories.
