@@ -1,0 +1,3 @@
+[submodule "apriltag-imgs"]
+	path = apriltag-imgs
+	url = git@github.com:AprilRobotics/apriltag-imgs.git
