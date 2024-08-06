@@ -10,7 +10,7 @@ This demo currently only supports the AprilTag tagStandard52h13 tags.
 This set of tags supports up to 48714 IDs, which should be enough for even larger inventories.
 A online generator can be found here: [April Tags generator](https://chaitanyantr.github.io/apriltag.html)
 
-In the docs folder there are also three pdfs (DIN A4) with test grids of tags in different sizes.
+In the layouts folder there are also three pdfs (DIN A4) with test grids of tags in different sizes.
 
 
 ## Based on
