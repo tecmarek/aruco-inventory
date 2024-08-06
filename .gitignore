@@ -4,3 +4,9 @@
 
 # Node modules folder
 node_modules/
+
+# Ignore generated layouts.pdf
+layouts/Layout.pdf
+
+# Ignore png needed for label printing
+temp_label.png
