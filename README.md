@@ -22,17 +22,19 @@ With which the apriltag_wasm.js and apriltag_wasm.wasm files were compiled. For 
 - In the apriltag-js-standalone/Makefile the tagStandard52h13.c file has to be included in the APRILTAG_SRCS definition by removing the corresponding -e term.
 
 # Using the Python listings
-To use the included python listings you need a Python installation with tkinter support for example `apt install python3-tk`.
+To use the included python listings, you need a Python installation with tkinter support, for example `apt install python3-tk`.
 
-After that follow these steps:
+After that, follow these steps:
 
-1. Install virtualenv `pip install virtualenv`
-2. Create a virtual environment `virtualenv venv`
-3. Activate the environment `source venv/bin/activate`
-4. Install the requirements from requirements.txt `pip install -r requirements.txt`
+1. Create a virtual environment `python3 -m venv venv`
+2. Activate the environment `source venv/bin/activate`
+3. Install the requirements from requirements.txt `pip install -r requirements.txt`
 
 ## Layout generator
-The layout generator can be used to create custom layouts like the ones provided in the layouts folder. To customise the generation change the values under "Generator settings" in the listing an run it.
+The layout generator can be used to create custom layouts (grids) of apriltags like the ones provided in the layouts folder. To customize the generation change the values under "Generator settings" in the listing and run it.
+
+    python layout_generator.py
+
 
 # Generating needed ssl key pair
 Run the following command in the src folder:

@@ -83,7 +83,7 @@ def draw_elements_on_page(c, element_width, spacing, margin, num_col, num_row, s
             apriltag_number = str(grid_id).zfill(5)
             file = f"tag52_13_{apriltag_number}.png"
 
-            with Image.open("tagStandard52h13/" + file, 'r') as im:
+            with Image.open("apriltag-imgs/tagStandard52h13/" + file, 'r') as im:
 
                 width, height = im.size
                 pix_vals = im.load()
