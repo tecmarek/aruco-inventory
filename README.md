@@ -30,10 +30,22 @@ After that, follow these steps:
 2. Activate the environment `source venv/bin/activate`
 3. Install the requirements from requirements.txt `pip install -r requirements.txt`
 
+To use the print function in the label printer listing, the [ptouch-print](https://dominic.familie-radermacher.ch/projekte/ptouch-print/) utility has to be installed. A good guide to do this can be found [here](https://github.com/HenrikBengtsson/brother-ptouch-label-printer-on-linux)
+
 ## Layout generator
 The layout generator can be used to create custom layouts (grids) of apriltags like the ones provided in the layouts folder. To customize the generation change the values under "Generator settings" in the listing and run it.
 
     python layout_generator.py
+
+## Label printer
+The label printer listing can be used to create custom inventroy labels for use with [Snap SMD Boxes](https://www.printables.com/de/model/139035-snap-smd-boxes). The printing function is based on the [ptouch-print](https://dominic.familie-radermacher.ch/projekte/ptouch-print/) utility (Only available for linux). So only brother printer supported by this utility can be used.
+
+To launch the GUI:
+
+    python label_printer.py
+
+Example of the GUI:
+![Example of GUI](docs/example_label_printer.jpg)
 
 
 # Generating needed ssl key pair
