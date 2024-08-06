@@ -5,6 +5,9 @@
 # Node modules folder
 node_modules/
 
+# Virtual Environment
+venv/
+
 # Ignore generated layouts.pdf
 layouts/Layout.pdf
 

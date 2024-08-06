@@ -1,3 +1,6 @@
+# Generator to create grids of apriltags for printing
+# Created by tecmarek 2024
+
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.units import mm
 from reportlab.lib.pagesizes import A4
