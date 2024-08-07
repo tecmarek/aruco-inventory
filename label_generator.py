@@ -26,7 +26,7 @@ class label_generator:
         self.large_label_text_padding_18mm = 6
         self.large_label_text_padding_24mm = 6
 
-        self.cut_line_pos_18mm = 90
+        self.cut_line_pos_18mm = 108
         self.cut_line_pos_24mm = 108
 
 
@@ -154,16 +154,16 @@ class label_generator:
 
         label_image.paste(apriltag_png, apriltag_png_position, apriltag_png)
 
-        text_total_height = cut_line_pos
-
+        # Calculate text x spacing
         text_total_width = label_width - apriltag_png_width - apriltag_text_padding
         text_x_offset = apriltag_png_width + apriltag_text_padding
 
         # Calculate text y spacing for top and bottom of text block
-        total_text_height = sum(draw.textbbox((0, 0), line, font=font)[3] - draw.textbbox((0, 0), line, font=font)[1] for line in text)
+        total_text_height = sum(draw.textbbox((0, 0), text[i], font=font)[3] - draw.textbbox((0, 0), text[i], font=font)[1] for i in range(number_of_lines))
         total_padding_height = text_padding * (number_of_lines - 1)
         required_height = total_text_height + total_padding_height
-        text_block_padding = (text_total_height - required_height) // 2
+        text_block_padding = (cut_line_pos - required_height) // 2
+
 
         text_pos_y = text_block_padding
         for i in range(number_of_lines):
@@ -177,7 +177,8 @@ class label_generator:
         # Draw cut line to aid in cutting the label to the correct size
         # Only when enabled -> not needed for XL labels 
         if cut_line:
-            draw.line((0, 0, label_width, 0), fill=self.content_color, width=1)
+            if media_width == "24mm": # Drawn top line only on 24mm as there is only a very small margin with 18mm tapes
+                draw.line((0, 0, label_width, 0), fill=self.content_color, width=1)
             draw.line((0, cut_line_pos, label_width, cut_line_pos), fill=self.content_color, width=1)
 
         return label_image

@@ -60,7 +60,7 @@ class LabelPrinterGUI(tk.Tk):
         self.label_width_label = tk.Label(self, text="Label Width:")
         self.label_width_label.grid(row=2, column=0, padx=10, pady=5, sticky="e")
         self.label_width_var = tk.StringVar()
-        self.label_width_dropdown = ttk.Combobox(self, textvariable=self.label_width_var, values=["24mm", "18mm"], state="readonly")
+        self.label_width_dropdown = ttk.Combobox(self, textvariable=self.label_width_var, values=["18mm", "24mm"], state="readonly")
         self.label_width_dropdown.grid(row=2, column=1, padx=5, pady=5, columnspan=2, sticky="w")
         self.label_width_dropdown.current(0)
 
