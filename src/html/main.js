@@ -5,7 +5,7 @@ const video = window.video = document.getElementById('webcam_canvas');
 const canvas = window.canvas = document.getElementById('buffer_canvas');
 const out_canvas = window.out_canvas = document.getElementById('out_canvas');
 
-const t_info = document.getElementById('time_info');
+//const t_info = document.getElementById('time_info');
 
 canvas.width = 480;
 canvas.height = 360;
@@ -25,8 +25,8 @@ const constraints = {
   video: true,
   video: {
     facingMode: 'environment',
-    width: { ideal: 99999 },
-    height: { ideal: 99999 }
+    width: { ideal: 1600 },
+    height: { ideal: 720 }
     }
 };
 
@@ -49,25 +49,51 @@ function refreshID()
 
 function init_event_listener()
 {
-  document.getElementById("id_input").addEventListener("change", (event) => {
-    refreshID();
-  });
+  const inputField = document.getElementById("id_input");
+  if (inputField) {
+    inputField.addEventListener("keydown", (event) => {
+      if (event.key === 'Enter') {
+        // Prevent the default browser action (like submitting a form)
+        event.preventDefault();
+        // This is the action that tells the mobile OS to hide the keyboard
+        inputField.blur(); 
+        console.log("Enter pressed. Keyboard closed.");
+      }
+    });
+
+    inputField.addEventListener("change", (event) => {
+      refreshID();
+    });
+  }
   
-  document.getElementById("show_all_outlines").addEventListener("change", (event) => {
-    if(document.getElementById("show_all_outlines").checked)
-    {
-        global_show_all_marker_outlines = 1;
-    }else {
-        global_show_all_marker_outlines = 0;
-    }
-  });
+  const outlineButton = document.getElementById("btn-show-outlines"); 
+  if (outlineButton) {
+    outlineButton.addEventListener("click", () => {
+        
+        outlineButton.classList.toggle('active'); 
+
+        if (outlineButton.classList.contains('active')) {
+            global_show_all_marker_outlines = 1;
+            console.log("Marker Outlines ON");
+        } else {
+            global_show_all_marker_outlines = 0;
+            console.log("Marker Outlines OFF");
+        }
+    });
+  }
   
-  document.getElementById("show_all_ids").addEventListener("change", (event) => {
-    if(document.getElementById("show_all_ids").checked)
-    {
-        global_show_all_marker_ids = 1;
-    }else {
-        global_show_all_marker_ids = 0;
-    }
-  });
+  const idsButton = document.getElementById("btn-show-ids");
+  if (idsButton) {
+    idsButton.addEventListener("click", () => {
+        idsButton.classList.toggle('active');
+
+        if (idsButton.classList.contains('active')) {
+            global_show_all_marker_ids = 1;
+            console.log("Marker IDs ON");
+        } else {
+            global_show_all_marker_ids = 0;
+            console.log("Marker IDs OFF");
+        }
+    });
+  }
 }

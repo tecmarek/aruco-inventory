@@ -63,7 +63,7 @@ async function process_frame() {
   //Set text options
   out_ctx.textAlign = "center";
   out_ctx.textBaseline = "middle";
-  out_ctx.font = "bold 40px courier";
+  out_ctx.font = "bold 60px courier";
   out_ctx.fillStyle = "#2ecc71"; //bright green
 
   detections.forEach(det => {
@@ -94,8 +94,8 @@ async function process_frame() {
       //out_ctx.closePath();
 
       //Mark corner 0
-      out_ctx.strokeStyle = "#f1c40f"; //bright orange
-      out_ctx.strokeRect(det.corners[0].x - 2, det.corners[0].y - 2, 4, 4);
+      //out_ctx.strokeStyle = "#f1c40f"; //bright orange
+      //out_ctx.strokeRect(det.corners[0].x - 2, det.corners[0].y - 2, 4, 4);
     }
 
     if(det.id == global_marker_id || global_show_all_marker_ids)
@@ -133,7 +133,7 @@ async function process_frame() {
 
   const endTime = new Date().getTime();
   const timeTaken = endTime - startTime;
-  t_info.innerHTML = "Detection time: " + timeTaken +"ms";
+  //t_info.innerHTML = "Detection time: " + timeTaken +"ms";
 
   window.requestAnimationFrame(process_frame);
 }

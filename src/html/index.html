@@ -3,64 +3,45 @@
 <head>
 
     <meta charset="utf-8">
-    <base target="_blank">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Augmented Reality Marker Detector</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-      <!-- Page style -->
+    
+    <!-- Page style -->
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-<div id="container">
+<div class="header">
+<h1>Augmented Reality Marker Detector</h1>
+</div>
 
-    <nav class="navbar shadow-lg mb-2">
-        <div class="container-fluid">
-          <span class="navbar-brand text-light mb-0 h1">Augmented Reality Marker Detector</span>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="row mb-2">
-            <div class="col">
-
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="show_all_outlines" checked>
-                    <label class="form-check-label text-light" for="show_all_boxes">Show all marker outlines</label>
-                </div>
-                  
-            </div>
-            <div class="col">
-
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="show_all_ids">
-                    <label class="form-check-label text-light" for="show_all_ids">Show all marker ids</label>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="mb-2">
-            <label for="id_input" class="form-label text-light">Tag ID:</label>
-            <input type="number" value="0" class="form-control" id="id_input" aria-describedby="id_input_help">
-            <div id="id_input_help" class="form-text text-light">Enter the ID you want to highlight above</div>
-        </div>
+<div class="controls-panel">
+    <div class="button-container">
+        <button id="btn-show-outlines" class="option-button active">Show all outlines</button>
+        <button id="btn-show-ids" class="option-button">Show all IDs</button>
     </div>
-
-    <div>
-        <div id="current_id" class="text-light">Searching ID -</div>
-        <video id="webcam_canvas" playsinline autoplay style="display:none"></video>
-        <canvas id="buffer_canvas" style="display:none"></canvas>
-        <canvas id="out_canvas"></canvas>
-        <div class="text-light"><strong>Created by tecmarek</strong></div>
-        <div id="time_info" class="text-light">-</div>
+    
+    <div class="id-display-group">
+        <span id="current_id" class="id-display-text">Searching ID - ??</span>
     </div>
+</div>
+
+<div class="camera-container">
+    <div class="video-overlay">
+        <video id="webcam_canvas" autoplay muted playsinline class="contain-mode"></video>
+        <apriltag-detections>
+            <canvas id="buffer_canvas" style="display:none"></canvas>
+            <canvas id="out_canvas" class="cover-mode"></canvas>
+        </apriltag-detections>
+    </div>
+</div>
+
+<div class="id-input-group">
+    <input id="id_input" type="text" pattern="\d*" inputmode="numeric" placeholder="ID" value="0">
+</div>
 
 <script src="main.js" async></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.1.0/math.min.js"></script>
